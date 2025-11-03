@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codenames-Lite • Room</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page">
+  <header class="topbar">
+    <a class="back" href="/">← Lobby</a>
+    <h1 id="gameTitle">Codenames‑Lite</h1>
+    <div class="top-right">
+      <span id="roomIdBadge" class="badge"></span>
+    </div>
+  </header>
+
+  <main class="room-grid">
+    <aside class="column">
+      <div class="card">
+        <h3>Room</h3>
+        <div><strong>Host:</strong> <span id="hostName">—</span></div>
+        <div><strong>Rounds:</strong> <span id="roundsLabel">—</span></div>
+        <div><strong>Round:</strong> <span id="roundNow">0</span></div>
+        <div><strong>Active Team:</strong> <span id="activeTeam">—</span></div>
+        <div><strong>Timer:</strong> <span id="timer">00:00</span></div>
+        <div class="row gap">
+          <button id="startGameBtn" class="primary">Start Game</button>
+          <button id="startRoundBtn">Start Round</button>
+          <button id="nextRoundBtn">Next Round</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Join a Team</h3>
+        <div class="row">
+          <button id="teamRed" class="team-red">Join Red</button>
+          <button id="teamBlue" class="team-blue">Join Blue</button>
+        </div>
+        <div class="row">
+          <button id="claimOperatorBtn">Claim / Release Operator</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Players</h3>
+        <div class="split">
+          <div>
+            <div class="team-head team-red">Red</div>
+            <ul id="listRed" class="plain"></ul>
+            <div><strong>Score:</strong> <span id="scoreRed">0</span></div>
+          </div>
+          <div>
+            <div class="team-head team-blue">Blue</div>
+            <ul id="listBlue" class="plain"></ul>
+            <div><strong>Score:</strong> <span id="scoreBlue">0</span></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <section class="column">
+      <div class="card">
+        <h3>Word Board</h3>
+        <div id="board" class="board"></div>
+        <p class="muted">Correct guesses turn green and score points. New words appear after enough correct guesses.</p>
+      </div>
+
+      <div class="card">
+        <h3>Contributions</h3>
+        <div id="chatStream" class="chat"></div>
+        <div class="row gap">
+          <input id="chatInput" placeholder="Type a clue (if operator) or your guess…" maxlength="140" />
+          <button id="sendBtn">Send</button>
+        </div>
+        <p id="chatHint" class="muted"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span id="footNotice"></span>
+  </footer>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>

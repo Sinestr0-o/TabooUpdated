@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codenames-Lite • Lobby</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page">
+  <header class="topbar">
+    <h1>Codenames‑Lite</h1>
+  </header>
+
+  <main class="container two-col">
+    <section class="card">
+      <h2>Create Game</h2>
+      <label>Game Name
+        <input id="createGameName" placeholder="Friday Fun Night" />
+      </label>
+      <label>Number of Rounds
+        <input id="createRounds" type="number" min="1" max="12" value="6" />
+      </label>
+      <label>Your Name
+        <input id="createHostName" placeholder="Alex" />
+      </label>
+      <button id="createBtn">Create Room</button>
+      <p id="createHint" class="muted"></p>
+    </section>
+
+    <section class="card">
+      <h2>Join Game</h2>
+      <label>Room Code
+        <input id="joinRoom" placeholder="e.g. 53284" />
+      </label>
+      <label>Your Name
+        <input id="joinName" placeholder="Jordan" />
+      </label>
+      <button id="joinBtn">Join Room</button>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Two teams. One clue. Good luck!</span>
+  </footer>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    document.getElementById('createBtn').onclick = () => {
+      const gameName = document.getElementById('createGameName').value.trim();
+      const rounds = Number(document.getElementById('createRounds').value);
+      const hostName = document.getElementById('createHostName').value.trim() || 'Host';
+      socket.emit('room:create', { gameName, rounds, hostName }, (res) => {
+        if (!res.ok) {
+          document.getElementById('createHint').textContent = 'Failed to create room.';
+          return;
+        }
+        const id = res.roomId;
+        // Store your name to prefill on room page
+        sessionStorage.setItem('playerName', hostName);
+        window.location.href = `/room.html?room=${id}`;
+      });
+    };
+
+    document.getElementById('joinBtn').onclick = () => {
+      const room = document.getElementById('joinRoom').value.trim();
+      const name = document.getElementById('joinName').value.trim() || 'Player';
+      if (!room) {
+        alert('Enter a room code');
+        return;
+      }
+      sessionStorage.setItem('playerName', name);
+      window.location.href = `/room.html?room=${encodeURIComponent(room)}`;
+    };
+  </script>
+</body>
+</html>
