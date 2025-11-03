@@ -8,20 +8,20 @@
 </head>
 <body class="page">
   <header class="topbar">
-    <h1>Codenames‑Lite</h1>
+    <h1>TABOO</h1>
   </header>
 
   <main class="container two-col">
     <section class="card">
       <h2>Create Game</h2>
-      <label>Game Name
-        <input id="createGameName" placeholder="Friday Fun Night" />
+      <label>Game Name: 
+        <input id="createGameName"/>
       </label>
-      <label>Number of Rounds
+      <label>Number of Rounds: 
         <input id="createRounds" type="number" min="1" max="12" value="6" />
       </label>
-      <label>Your Name
-        <input id="createHostName" placeholder="Alex" />
+      <label>Your Name: 
+        <input id="createHostName"/>
       </label>
       <button id="createBtn">Create Room</button>
       <p id="createHint" class="muted"></p>
@@ -29,19 +29,15 @@
 
     <section class="card">
       <h2>Join Game</h2>
-      <label>Room Code
+      <label>Room Code: 
         <input id="joinRoom" placeholder="e.g. 53284" />
       </label>
-      <label>Your Name
-        <input id="joinName" placeholder="Jordan" />
+      <label>Your Name: 
+        <input id="joinName"/>
       </label>
       <button id="joinBtn">Join Room</button>
     </section>
   </main>
-
-  <footer class="footer">
-    <span>Two teams. One clue. Good luck!</span>
-  </footer>
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
